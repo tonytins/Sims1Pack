@@ -4,11 +4,11 @@ Sims1Pack, or ``s1pk``, is a custom ZIP-based s1pk format designed to enhance th
 
 ## S1Util
 
-S1Util is a simple command-line package manager designed to work with the s1pk format. At this stage, it provides support for extracting s1pk files. Packaging functionality will need to be performed manually for now. Below are the basic usage instructions:
+S1Util is a simple command-line package manager designed to work with the s1pk format. At this stage, it provides support for extracting files. Packaging will need to be performed manually for now. Below are the basic usage instructions:
 
 ### Usage
 
-To extract an s1pk file, use the following command:
+To extract an ``s1pk`` file, use the following command:
 
 ```shell
 s1util --file <file_path> --directory <output_directory>
