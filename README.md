@@ -1,31 +1,36 @@
 # Sims1Pack (s1pk)
 
-## Overview
-
-Sims1Pack, also known as ``s1pk``, is a custom ZIP-based format designed for managing Sims 1 content. This format is particularly useful for organizing and distributing custom content within the Sims 1 community.
+Sims1Pack, or ``s1pk``, is a custom ZIP-based s1pk format designed to enhance the Sims 1 modding experience.
 
 ## S1Util
 
-**S1Util** is a straightforward command-line package manager designed to work seamlessly with the s1pk format. It simplifies the process of <!-- adding and --> extracting content from s1pk files.
-
-At this present stage, only the extraction process is possible. Packaging needs to be manually.
+S1Util is a simple command-line package manager designed to work with the s1pk format. At this stage, it provides support for extracting s1pk files. Packaging functionality will need to be performed manually for now. Below are the basic usage instructions:
 
 ### Usage
 
-To use S1Util, follow this simple command structure:
+To extract an s1pk file, use the following command:
 
 ```shell
-s1util --file <path to file> --directory <path to directory>
+s1util --file <file_path> --directory <output_directory>
 ```
 
-**Note:** On Windows, S1Util defaults to the Ultimate Edition install directory. For other platforms, you will need to set the directory manually.
+- `<file_path>` should be replaced with the path to the s1pk file you want to extract.
+- `<output_directory>` is the location where the contents of the ``s1pk`` file will be extracted to.
+
+### Platform Specifics
+
+#### Windows
+
+On Windows, S1Util defaults to the Ultimate Edition install directory for The Sims 1. This makes it convenient to work with mods and custom content in the Windows environment.
+
+#### Other Platforms
+
+For platforms other than Windows, you will need to specify the game's installation directory manually in the command line.
 
 ## License
 
-I license the Sims1Pack project under the GNU General Public License version 3 (GPL-3.0). This open-source license allows you to use, modify, and distribute the software freely, as long as you comply with the terms and conditions outlined in the GPL-3.0 license document.
+I license this project under the GPL 3 (GNU General Public License, version 3) - see [LICENSE](./LICENSE) for details.
 
-For detailed information on the GPL-3.0 license, please refer to the [LICENSE](./LICENSE) file included with this project.
+<hr>
 
----
-
-Feel free to collaborate on this project or use it for your Sims 1 content management needs. If you have any questions or would like to contribute, please don't hesitate to get in touch. Happy Simming!
+Happy Simming!
