@@ -6,7 +6,9 @@ Sims1Pack, also known as ``s1pk``, is a custom ZIP-based format designed for man
 
 ## S1Util
 
-**S1Util** is a straightforward command-line package manager designed to work seamlessly with the s1pk format. It simplifies the process of adding and extracting content from s1pk files.
+**S1Util** is a straightforward command-line package manager designed to work seamlessly with the s1pk format. It simplifies the process of <!-- adding and --> extracting content from s1pk files.
+
+At this present stage, only the extraction process is possible. Packaging needs to be manually.
 
 ### Usage
 
@@ -22,7 +24,7 @@ s1util --file <path to file> --directory <path to directory>
 
 I license the Sims1Pack project under the GNU General Public License version 3 (GPL-3.0). This open-source license allows you to use, modify, and distribute the software freely, as long as you comply with the terms and conditions outlined in the GPL-3.0 license document.
 
-For detailed information on the GPL-3.0 license, please refer to the LICENSE file included with this project.
+For detailed information on the GPL-3.0 license, please refer to the [LICENSE](./LICENSE) file included with this project.
 
 ---
 
