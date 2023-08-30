@@ -2,16 +2,16 @@
 
 Sims1Pack, or ``s1pk``, is a custom ZIP-based s1pk format designed to enhance the Sims 1 modding experience.
 
-## S1Util
+## SimGet
 
-S1Util is a simple command-line package manager designed to work with the s1pk format. At this stage, it provides support for extracting files. Packaging will need to be performed manually for now. Below are the basic usage instructions:
+SimGet is a simple command-line package manager designed to work with the ``s1pk`` format. At this stage, it provides support for extracting files. Packaging will need to be performed manually for now. Below are the basic usage instructions:
 
 ### Usage
 
 To extract an ``s1pk`` file, use the following command:
 
 ```shell
-s1util --file <file_path> --directory <output_directory>
+simget --file <file_path> --directory <output_directory>
 ```
 
 - `<file_path>` should be replaced with the path to the s1pk file you want to extract.
@@ -21,7 +21,7 @@ s1util --file <file_path> --directory <output_directory>
 
 #### Windows
 
-On Windows, S1Util defaults to the Complete Collection install directory for The Sims 1. This makes it convenient to work with mods and custom content in the Windows environment.
+On Windows, SimGet defaults to the Complete Collection install directory for The Sims 1. This makes it convenient to work with mods and custom content in the Windows environment.
 
 #### Other Platforms
 

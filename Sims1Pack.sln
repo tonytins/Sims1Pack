@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1706.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1Util", "S1Util\S1Util.csproj", "{001F4DDD-9325-4F22-9473-705E92739F97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimGet", "SimGet\SimGet.csproj", "{001F4DDD-9325-4F22-9473-705E92739F97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
