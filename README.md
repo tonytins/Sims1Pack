@@ -21,7 +21,7 @@ s1util --file <file_path> --directory <output_directory>
 
 #### Windows
 
-On Windows, S1Util defaults to the Ultimate Edition install directory for The Sims 1. This makes it convenient to work with mods and custom content in the Windows environment.
+On Windows, S1Util defaults to the Complete Collection install directory for The Sims 1. This makes it convenient to work with mods and custom content in the Windows environment.
 
 #### Other Platforms
 
