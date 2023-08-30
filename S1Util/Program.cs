@@ -9,6 +9,7 @@ Parser.Default.ParseArguments<Options>(args)
 
         var platform = Environment.OSVersion;
 
+        // Automatically set to default game location on Windows
         if (platform.Platform == PlatformID.Win32NT && dirPath == string.Empty)
         {
             // TODO Presumed location. I haven't played the game in a while.
@@ -21,7 +22,7 @@ Parser.Default.ParseArguments<Options>(args)
         // Check if game directory exists
         if (!Directory.Exists(dirPath))
         {
-            Console.WriteLine("Directory not found.");
+            Console.WriteLine("Game not found.");
             Environment.Exit(Environment.ExitCode);
         }
 
@@ -42,9 +43,6 @@ Parser.Default.ParseArguments<Options>(args)
             {
                 // Build the full path for the extracted file
                 string extractFilePath = Path.Combine(dirPath, entry.FullName);
-
-                // Create the directory structure if needed
-                Directory.CreateDirectory(Path.GetDirectoryName(extractFilePath));
 
                 // Extract the file
                 entry.ExtractToFile(extractFilePath, true);
