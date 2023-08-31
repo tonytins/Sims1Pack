@@ -21,3 +21,9 @@ public class Options
     [Option('f', "file", Required = true)] public string File { get; set; } = string.Empty;
     [Option('s', "simulate")] public bool Simulate { get; set; } = false;
 }
+
+[Verb("extract")]
+public class Extract : Options { }
+
+[Verb("compress")]
+public class Compress : Options { }

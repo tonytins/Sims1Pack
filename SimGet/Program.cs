@@ -13,16 +13,25 @@
 //
 // You should have received a copy of the GNU General Public License along with
 // this program.  If not, see <http://www.gnu.org/licenses/>.
-using System.IO.Compression;
 using S1Util;
 
-Parser.Default.ParseArguments<Options>(args)
-    .WithParsed(opts =>
+Parser.Default.ParseArguments<Extract, Compress>(args)
+    .WithParsed<Extract>(opts =>
     {
         var dirPath = opts.Directory;
         var zipPath = opts.File;
 
         var unpack = new PackUtil(zipPath, dirPath);
         unpack.Extract(opts.Simulate);
+
+    })
+    .WithParsed<Compress>(opts =>
+    {
+        var dirPath = opts.Directory;
+        var zipPath = opts.File;
+
+        var compress = new PackUtil(zipPath, dirPath);
+
+        throw new NotImplementedException();
 
     });
