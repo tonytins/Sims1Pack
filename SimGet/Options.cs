@@ -19,4 +19,5 @@ public class Options
 {
     [Option('d', "dir")] public string Directory { get; set; } = string.Empty;
     [Option('f', "file", Required = true)] public string File { get; set; } = string.Empty;
+    [Option('s', "simulate")] public bool Simulate { get; set; } = false;
 }
