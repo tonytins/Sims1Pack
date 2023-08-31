@@ -1,4 +1,4 @@
-﻿// A custom ZIP-based format designed to enhance the Sims 1 modding experience.
+// A custom ZIP-based format designed to enhance the Sims 1 modding experience.
 // Copyright (C) 2023 Tony Bark
 //
 // This program is free software: you can redistribute it and/or modify it
@@ -13,18 +13,18 @@
 //
 // You should have received a copy of the GNU General Public License along with
 // this program.  If not, see <http://www.gnu.org/licenses/>.
+using System.Text.Json.Serialization;
+
 namespace S1Util;
 
-public class Options
+public record Manifest
 {
-    [Option('d', "destination")] public string Destination { get; set; } = string.Empty;
-    [Option('f', "file", Required = true)] public string File { get; set; } = string.Empty;
-    [Option('v', "verbose")] public bool Verbose { get; set; } = false;
-    [Option('s', "simulate", HelpText = "Simulate the extraction or compression process.")] public bool Simulate { get; set; } = false;
+    [JsonPropertyName("version")]
+    public string Version { get; set; } = "1.0";
+
+    [JsonPropertyName("author")]
+    public string Author { get; set; } = Environment.UserName;
+
+    [JsonPropertyName("files")]
+    public string[] Files { get; set; } = new string[] { };
 }
-
-[Verb("extract", HelpText = "Extract .s1pk archives.")]
-public class Extract : Options { }
-
-[Verb("compress", HelpText = "Compress .s1pk files.")]
-public class Compress : Options { }

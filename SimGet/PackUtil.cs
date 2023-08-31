@@ -19,30 +19,34 @@ namespace S1Util;
 
 public class PackUtil
 {
-    public PackUtil(string directory, string file)
+    public PackUtil(string destination, string file, bool simulate)
     {
-        OutputPath = directory;
+        Destination = destination;
         FilePath = file;
+        Simulate = simulate;
     }
 
-    string OutputPath { get; set; } = string.Empty;
+    string Destination { get; set; } = string.Empty;
     string FilePath { get; set; } = string.Empty;
+    bool Simulate { get; set; } = false;
 
-    void PathDetection()
+    void PathResolver()
     {
         var os = Environment.OSVersion;
 
-        if (os.Platform == PlatformID.Win32NT && OutputPath == string.Empty)
+        if (Simulate) Destination = Environment.CurrentDirectory;
+
+        if (os.Platform == PlatformID.Win32NT && Destination == string.Empty && !Simulate)
         {
             // TODO Presumed location. I haven't played the game in a while.
             var progFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
             var gamePath = Path.Combine(progFiles, "The Sims Complete Collection", "Downloads");
 
-            OutputPath = gamePath;
+            Destination = gamePath;
         }
 
         // Check if game directory exists
-        if (!Directory.Exists(OutputPath))
+        if (!Directory.Exists(Destination) && !Simulate)
         {
             Console.WriteLine("Game not found.");
             Environment.Exit(Environment.ExitCode);
@@ -65,9 +69,9 @@ public class PackUtil
         }
     }
 
-    public void Extract(bool simulate = false)
+    public void Extract()
     {
-        PathDetection();
+        PathResolver();
 
         // Extract the s1pk file
         using var archive = ZipFile.OpenRead(FilePath);
@@ -75,17 +79,35 @@ public class PackUtil
         foreach (ZipArchiveEntry entry in archive.Entries)
         {
             // Check if the entry has the .iff extension
-            if (entry.FullName.EndsWith(".iff", StringComparison.InvariantCultureIgnoreCase) && !simulate)
+            if (entry.FullName.EndsWith(".iff", StringComparison.InvariantCultureIgnoreCase))
             {
                 // Build the full path for the extracted file
-                string extractFilePath = Path.Combine(OutputPath, entry.FullName);
+                var extractFilePath = Path.Combine(Destination, entry.FullName);
+
+                Console.WriteLine(extractFilePath);
 
                 // Extract the file
-                entry.ExtractToFile(extractFilePath, true);
+                if (!Simulate) entry.ExtractToFile(extractFilePath, true);
             }
         }
 
         Console.WriteLine("Extraction completed successfully.");
 
+    }
+
+    public void Compress()
+    {
+        var files = Directory.GetFiles(Destination);
+        // using var archive = ZipFile.CreateFromDirectory()
+
+        foreach (var file in files)
+        {
+            if (file.EndsWith("iff", StringComparison.InvariantCultureIgnoreCase))
+            {
+
+            }
+        }
+
+        throw new NotImplementedException();
     }
 }

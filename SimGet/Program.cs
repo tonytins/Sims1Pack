@@ -18,20 +18,19 @@ using S1Util;
 Parser.Default.ParseArguments<Extract, Compress>(args)
     .WithParsed<Extract>(opts =>
     {
-        var dirPath = opts.Directory;
+        var dirPath = opts.Destination;
         var zipPath = opts.File;
 
-        var unpack = new PackUtil(zipPath, dirPath);
-        unpack.Extract(opts.Simulate);
+        var unpack = new PackUtil(zipPath, dirPath, opts.Simulate);
+        unpack.Extract();
 
     })
     .WithParsed<Compress>(opts =>
     {
-        var dirPath = opts.Directory;
+        var dirPath = opts.Destination;
         var zipPath = opts.File;
 
-        var compress = new PackUtil(zipPath, dirPath);
-
-        throw new NotImplementedException();
+        var compress = new PackUtil(zipPath, dirPath, opts.Simulate);
+        compress.Compress();
 
     });
