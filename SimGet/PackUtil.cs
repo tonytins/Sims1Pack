@@ -19,22 +19,32 @@ namespace S1Util;
 
 public class PackUtil
 {
-    public PackUtil(string destination, string file, bool simulate)
+    public PackUtil(string destination, string file, bool simulate, bool verbose)
     {
         Destination = destination;
-        FilePath = file;
+        FileName = file;
         Simulate = simulate;
+        Verbose = verbose;
     }
 
     string Destination { get; set; } = string.Empty;
-    string FilePath { get; set; } = string.Empty;
+    string FileName { get; set; } = string.Empty;
     bool Simulate { get; set; } = false;
+    bool Verbose { get; set; } = false;
 
-    void PathResolver()
+    public void Extract()
     {
-        var os = Environment.OSVersion;
-
+        // Use as placeholder
         if (Simulate) Destination = Environment.CurrentDirectory;
+
+        // Check if the s1pk file exists
+        if (!File.Exists(FileName))
+        {
+            Console.WriteLine("The file does not exist.");
+            Environment.Exit(Environment.ExitCode);
+        }
+
+        var os = Environment.OSVersion;
 
         if (os.Platform == PlatformID.Win32NT && Destination == string.Empty && !Simulate)
         {
@@ -45,6 +55,16 @@ public class PackUtil
             Destination = gamePath;
         }
 
+
+        // Check file extensions
+        if (!FileName.EndsWith("s1pk", StringComparison.InvariantCultureIgnoreCase)
+        || !FileName.EndsWith("sims1pack", StringComparison.InvariantCultureIgnoreCase)
+        || !FileName.EndsWith("zip", StringComparison.InvariantCultureIgnoreCase))
+        {
+            Console.WriteLine("Invalid format");
+            Environment.Exit(Environment.ExitCode);
+        }
+
         // Check if game directory exists
         if (!Directory.Exists(Destination) && !Simulate)
         {
@@ -52,42 +72,23 @@ public class PackUtil
             Environment.Exit(Environment.ExitCode);
         }
 
-        // Check if the s1pk file exists
-        if (!File.Exists(FilePath))
-        {
-            Console.WriteLine("The s1pk file does not exist.");
-            Environment.Exit(Environment.ExitCode);
-        }
-
-        // Check file extensions
-        if (!FilePath.EndsWith("s1pk", StringComparison.InvariantCultureIgnoreCase)
-        || !FilePath.EndsWith("sims1pack", StringComparison.InvariantCultureIgnoreCase)
-        || !FilePath.EndsWith("zip", StringComparison.InvariantCultureIgnoreCase))
-        {
-            Console.WriteLine("Invalid format");
-            Environment.Exit(Environment.ExitCode);
-        }
-    }
-
-    public void Extract()
-    {
-        PathResolver();
-
         // Extract the s1pk file
-        using var archive = ZipFile.OpenRead(FilePath);
+        using var archive = ZipFile.OpenRead(FileName);
 
         foreach (ZipArchiveEntry entry in archive.Entries)
         {
             // Check if the entry has the .iff extension
-            if (entry.FullName.EndsWith(".iff", StringComparison.InvariantCultureIgnoreCase))
+            if (entry.Name.EndsWith(".iff", StringComparison.InvariantCultureIgnoreCase))
             {
                 // Build the full path for the extracted file
-                var extractFilePath = Path.Combine(Destination, entry.FullName);
+                var extractFilePath = Path.Combine(Destination, entry.Name);
+
 
                 Console.WriteLine(extractFilePath);
 
                 // Extract the file
-                if (!Simulate) entry.ExtractToFile(extractFilePath, true);
+                if (!Simulate)
+                    entry.ExtractToFile(extractFilePath, true);
             }
         }
 
@@ -97,17 +98,19 @@ public class PackUtil
 
     public void Compress()
     {
-        var files = Directory.GetFiles(Destination);
-        // using var archive = ZipFile.CreateFromDirectory()
+        using var zipFile = File.Open(FileName, FileMode.Create);
+        using var archive = new ZipArchive(zipFile);
 
-        foreach (var file in files)
+        var directory = new DirectoryInfo(Destination);
+        if (!directory.Exists)
         {
-            if (file.EndsWith("iff", StringComparison.InvariantCultureIgnoreCase))
-            {
-
-            }
+            Console.WriteLine("Directory does not exist.");
+            Environment.Exit(Environment.ExitCode);
         }
 
-        throw new NotImplementedException();
+        foreach (var dir in directory.EnumerateFiles("*.iff"))
+            archive.CreateEntry(dir.FullName);
+
+
     }
 }

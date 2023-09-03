@@ -17,10 +17,17 @@ namespace S1Util;
 
 public class Options
 {
-    [Option('d', "destination")] public string Destination { get; set; } = string.Empty;
-    [Option('f', "file", Required = true)] public string File { get; set; } = string.Empty;
-    [Option('v', "verbose")] public bool Verbose { get; set; } = false;
-    [Option('s', "simulate", HelpText = "Simulate the extraction or compression process.")] public bool Simulate { get; set; } = false;
+    [Option('d', "destination")]
+    public string Destination { get; set; } = string.Empty;
+
+    [Option('f', "file", Required = true)]
+    public string File { get; set; } = string.Empty;
+
+    [Option('v', "verbose")]
+    public bool Verbose { get; set; } = false;
+
+    [Option('s', "simulate", HelpText = "Simulate the extraction or compression process.")]
+    public bool Simulate { get; set; } = false;
 }
 
 [Verb("extract", HelpText = "Extract .s1pk archives.")]

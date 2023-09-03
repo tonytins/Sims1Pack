@@ -21,7 +21,7 @@ Parser.Default.ParseArguments<Extract, Compress>(args)
         var dirPath = opts.Destination;
         var zipPath = opts.File;
 
-        var unpack = new PackUtil(zipPath, dirPath, opts.Simulate);
+        var unpack = new PackUtil(zipPath, dirPath, opts.Simulate, opts.Verbose);
         unpack.Extract();
 
     })
@@ -30,7 +30,7 @@ Parser.Default.ParseArguments<Extract, Compress>(args)
         var dirPath = opts.Destination;
         var zipPath = opts.File;
 
-        var compress = new PackUtil(zipPath, dirPath, opts.Simulate);
+        var compress = new PackUtil(zipPath, dirPath, opts.Simulate, opts.Verbose);
         compress.Compress();
 
     });
